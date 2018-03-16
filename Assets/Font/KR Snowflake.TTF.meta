@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1cca1b3567856434c997fbcd124a2aab
+timeCreated: 1521171352
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: KR Snowflake
+  fontNames:
+  - KR Snowflake
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

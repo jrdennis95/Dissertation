@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnemyStats : MonoBehaviour {
 
@@ -26,45 +27,69 @@ public class EnemyStats : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
     public void subtractHealth(int health)
     {
-        m_healthslider.gameObject.SetActive(true);
-        health = health / m_strength;
-
-        if (health <= 0)
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            return;
+            m_healthslider.gameObject.SetActive(true);
+            health = health / m_strength;
+
+            if (health <= 0)
+            {
+                return;
+            }
+            else
+            {
+                m_health -= health;
+                m_healthslider.value = m_health;
+            }
+
+            if (m_health <= 0)
+            {
+                Kill();
+            }
         } else
         {
-            m_health -= health;
-            m_healthslider.value = m_health;
-        }
+            health = health / m_strength;
 
-        if(m_health <= 0)
-        {
-            Kill();
+            if (health <= 0)
+            {
+                return;
+            }
+            else
+            {
+                m_health -= health;
+                m_healthslider.value = m_health;
+            }
+
+            if (m_health <= 0)
+            {
+                Kill();
+            }
         }
 
     }
 
     public void Kill()
     {
-        Vector3 tempscale = transform.parent.gameObject.transform.localScale;
+        Vector3 temprotation = transform.localEulerAngles;
         go = Instantiate(death) as GameObject;
+        go.transform.SetParent(transform.parent.gameObject.transform);
+        go.transform.localScale = transform.localScale;
+        go.transform.localPosition = transform.localPosition;
         if (control.getDirection())
         {
-            tempscale.y = Mathf.Abs(transform.parent.gameObject.transform.localScale.y);
-            transform.parent.gameObject.transform.localScale = tempscale;
+            temprotation.y = Mathf.Abs(transform.localEulerAngles.y);
+            death.transform.localEulerAngles = temprotation;
         }
         else
         {
-            tempscale.y = Mathf.Abs(transform.parent.gameObject.transform.localScale.y) * -1;
-            transform.parent.gameObject.transform.localScale = tempscale;
+            temprotation.y = Mathf.Abs(transform.localEulerAngles.y) *-1;
+            death.transform.localEulerAngles = temprotation;
         };
-        go.transform.position = transform.position;
+
         Destroy(gameObject);
         if (lootable)
         {

@@ -16,7 +16,7 @@ public class EnemyDeathScript : MonoBehaviour {
 
         if(decay < 0)
         {
-            Destroy(gameObject.transform.root.gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 

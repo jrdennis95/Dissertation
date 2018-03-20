@@ -76,17 +76,36 @@ public class GroundSpawn : MonoBehaviour
         {
             if (player.position.x > activeSpawn[i].transform.position.x + 14)
             {
-                activeSpawn[i].SetActive(false);
-            } else if (player.position.x < activeSpawn[i].transform.position.x - 14)
+                foreach (Renderer r in activeSpawn[i].GetComponentsInChildren<Renderer>())
+                {
+                    if (r.gameObject.tag != "Persistent") {
+                        r.enabled = false;
+                    }
+                    //activeSpawn[i].SetActive(false);
+                }
+
+            }
+            else if (player.position.x < activeSpawn[i].transform.position.x - 14)
             {
-                activeSpawn[i].SetActive(false);
+                foreach (Renderer r in activeSpawn[i].GetComponentsInChildren<Renderer>())
+                {
+                    if (r.gameObject.tag != "Persistent") {
+                        r.enabled = false;
+                    }
+                    //activeSpawn[i].SetActive(false);
+                }
             } else
             {
-                activeSpawn[i].SetActive(true);
+                foreach (Renderer r in activeSpawn[i].GetComponentsInChildren<Renderer>())
+                {
+                    if (r.gameObject.tag != "Persistent")
+                    {
+                        r.enabled = true;
+                    }
+                    //activeSpawn[i].SetActive(false);
+                }
             }
         }
-        //Destroy(activeSpawn[0]);
-        //activeSpawn.RemoveAt(0);
     }
 
 

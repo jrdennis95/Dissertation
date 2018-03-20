@@ -11,6 +11,17 @@ TagManager:
   - Coin
   - Enemy
   - Coin Stack
+  - Spike
+  - Switch
+  - E
+  - Trapdoor
+  - Persistent
+  - Paused
+  - Boss
+  - Shield
+  - Fire
+  - Ice
+  - BossHitBox
   layers:
   - Default
   - TransparentFX
@@ -25,10 +36,10 @@ TagManager:
   - Ground
   - Destructible
   - Enemy
-  - 
-  - 
-  - 
-  - 
+  - Speech
+  - Boss
+  - FireIce
+  - FireIceParticle
   - 
   - 
   - 

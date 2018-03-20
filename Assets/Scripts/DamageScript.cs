@@ -11,6 +11,7 @@ public class DamageScript : MonoBehaviour {
     public int kbradius;
     private Vector3 kb;
     private Rigidbody rb;
+    Animator anim;
     float cooldown;
 
     bool range = false;
@@ -19,6 +20,7 @@ public class DamageScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         cooldown = Time.time;
+        anim = transform.parent.GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         stats = player.GetComponent<PlayerStats>();
 	}
@@ -55,10 +57,12 @@ public class DamageScript : MonoBehaviour {
     {
         if (cooldown <= Time.time)
         {
+            AudioSource audio;
+            audio = GetComponent<AudioSource>();
+            AudioSource.PlayClipAtPoint(audio.clip, transform.position);
             stats.subtractHealth(dmg);
             cooldown = Time.time + dmgspeed;
             Knockback(player.transform, true);
-            Debug.Log(stats.getHealth());
         }
     }
 
@@ -81,7 +85,6 @@ public class DamageScript : MonoBehaviour {
         rb = t.GetComponent<Rigidbody>();
         rb.velocity = new Vector3(0, 0, 0);
         kb.y = 0.1f * knockback;
-        Debug.Log("kb = " + kb);
         rb.AddForce(kb, ForceMode.Impulse);
     }
 }

@@ -26,6 +26,7 @@ public class CutsceneControl : MonoBehaviour {
     float fadetime = 0.0f;
     float starttime = 0.0f;
     float overalltime = 0.0f;
+    float restarttime = 5.0f;
     bool frozen, frozen2, frozen3;
     // Use this for initialization
     void Start () {
@@ -37,6 +38,7 @@ public class CutsceneControl : MonoBehaviour {
         frozen2 = false;
         frozen3 = false;
         skip = false;
+        restarttime = 5.0f;
         m_skip.gameObject.SetActive(true);
         m_title.gameObject.SetActive(false);
         m_start.gameObject.SetActive(false);
@@ -48,16 +50,16 @@ public class CutsceneControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        Debug.Log(overalltime);
         if (Input.GetKeyDown("space"))
         {
             ResetColours();
+            fadetime = 0.0f;
             skip = true;
         }
         if (skip == false) {
             starttime += Time.deltaTime;
             overalltime += Time.deltaTime;
-            //Debug.Log(fadetime);
-            Debug.Log(overalltime);
             if (starttime > 0.1f && frozen) {
                 anim.enabled = false;
             }
@@ -153,6 +155,7 @@ public class CutsceneControl : MonoBehaviour {
                 firstpos2 = player.transform.position;
                 secondpos2 = player.transform.position - new Vector3(0, 0, 6);
                 player.transform.Rotate(Vector3.up * 10);
+                
             }
             if (overalltime > 17.1f && overalltime < 19.0f)
             {
@@ -192,6 +195,8 @@ public class CutsceneControl : MonoBehaviour {
             }
             if (firstscene)
             {
+                Vector3 firstpos = new Vector3(-120.7f, 18.06f, 0.5881844f);
+                Vector3 secondpos = new Vector3(-120.7f, 8.060001f, 0.5881844f);
                 t += Time.deltaTime;
                 first.transform.position = Vector3.Lerp(firstpos, secondpos, t / m_speed);
             }
@@ -254,7 +259,12 @@ public class CutsceneControl : MonoBehaviour {
                 second.gameObject.transform.Rotate(Vector3.up * 110 * Time.deltaTime);
             }
             if (overalltime > 30.9f)
-            {
+            {     
+                restarttime -= Time.deltaTime;
+                if(restarttime <= 0)
+                {
+                    SceneManager.LoadScene(0);
+                }
                 first.gameObject.SetActive(false);
                 second.gameObject.SetActive(false);
                 third.gameObject.SetActive(true);
@@ -265,6 +275,11 @@ public class CutsceneControl : MonoBehaviour {
             }
         } else
         {
+            restarttime -= Time.deltaTime;
+            if (restarttime <= 0)
+            {
+                SceneManager.LoadScene(0);
+            }
             first.gameObject.SetActive(false);
             second.gameObject.SetActive(false);
             third.gameObject.SetActive(true);
@@ -277,10 +292,16 @@ public class CutsceneControl : MonoBehaviour {
 
     private void TaskOnClick()
     {
-        SceneManager.LoadScene("Final");
+        SceneManager.LoadScene(1);
+    }
+    
+    public void ResetCutscene()
+    {
+
     }
 
-        void ResetColours()
+
+    void ResetColours()
     {
         chatbox1.color = new Color(0, 0, 0, 0);
         chatbox2.color = new Color(1, 1, 1, 0);

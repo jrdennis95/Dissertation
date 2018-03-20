@@ -23,11 +23,17 @@ public class PickupScript : MonoBehaviour {
             stats.addScore(10);
         } else if (hit.gameObject.tag == "Coin")
         {
+            AudioSource audio;
+            audio = hit.gameObject.GetComponent<AudioSource>();
             Destroy(hit.gameObject);
+            AudioSource.PlayClipAtPoint(audio.clip, transform.position);
             stats.addScore(2);
         } else if (hit.gameObject.tag == "Coin Stack")
         {
+            AudioSource audio;
+            audio = hit.gameObject.GetComponent<AudioSource>();
             Destroy(hit.gameObject);
+            AudioSource.PlayClipAtPoint(audio.clip, transform.position);
             stats.addScore(12);
         }
     } 

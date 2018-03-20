@@ -9,5 +9,26 @@ EditorBuildSettings:
     path: Assets/Intro.unity
     guid: 974b885d359a1124cba2b295df665a2e
   - enabled: 1
+    path: Assets/Loading.unity
+    guid: c9245bcef936d0b409f62012a0e8663a
+  - enabled: 1
     path: Assets/Final.unity
     guid: 2b5ac36914de4924b99224055cca2c36
+  - enabled: 1
+    path: Assets/Loading 2.unity
+    guid: b373ee69549ee264daca00e558c986a9
+  - enabled: 1
+    path: Assets/Boss Cutscene.unity
+    guid: a671118c28f22544ba0c9f871967f32c
+  - enabled: 1
+    path: Assets/Loading 3.unity
+    guid: ad2b9672a80b53e47985ade477ea346c
+  - enabled: 1
+    path: Assets/Boss Fight.unity
+    guid: 6fea4d868639d694f938c1f81ef1ce25
+  - enabled: 1
+    path: Assets/GameOver.unity
+    guid: bfd6d174773aa73409ff217187373ab2
+  - enabled: 0
+    path: 
+    guid: 8a138fa16df75de498882354ea8204f8

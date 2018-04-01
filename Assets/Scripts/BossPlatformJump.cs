@@ -41,9 +41,12 @@ public class BossPlatformJump : MonoBehaviour {
     {
         if (gameObject.name == "JumpArea3")
         {
-            if (player.transform.position.y > boss.transform.position.y + 1)
+            if (boss != null)
             {
-                boss.LargeJump();
+                if (player.transform.position.y > boss.transform.position.y + 1)
+                {
+                    boss.LargeJump();
+                }
             }
         }
     }

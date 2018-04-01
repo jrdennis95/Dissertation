@@ -6,11 +6,13 @@ public class FireIceScript : MonoBehaviour {
 
     public float m_speed;
     public int m_damage;
+    public int m_heal;
     public float decay;
-    // Use this for initialization
-    void Start () {
-
-	}
+    private BossControl bc;
+        // Use this for initialization
+        void Start () {
+            bc = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossControl>();
+        }
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,6 +27,15 @@ public class FireIceScript : MonoBehaviour {
         } else if (gameObject.tag == "Ice")
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - m_speed, transform.position.z);
+        } else if (gameObject.tag == "Heart")
+        {
+            if (bc.GetFirePhase())
+            {
+                transform.position = new Vector3(transform.position.x - m_speed, transform.position.y, transform.position.z);
+            } else if (bc.GetIcePhase())
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y - m_speed, transform.position.z);
+            }
         }
 	}
 
@@ -32,8 +43,14 @@ public class FireIceScript : MonoBehaviour {
     {
         if (hit.gameObject.tag == "Player")
         {
-            hit.GetComponent<PlayerStats>().subtractHealth(m_damage);
-            Destroy(gameObject);
+            if (gameObject.tag == "Heart") {
+                hit.GetComponent<PlayerStats>().addHealth(m_heal);
+                Destroy(gameObject);
+            }
+            else {
+                hit.GetComponent<PlayerStats>().subtractHealth(m_damage);
+                Destroy(gameObject);
+            }
         }
     }
 }

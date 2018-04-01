@@ -12,6 +12,9 @@ public class BossSpeechFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        speech.transform.position = boss.transform.position + new Vector3(0.8f, 2.1f, 0);
+        if (boss != null)
+        {
+            speech.transform.position = boss.transform.position + new Vector3(0.8f, 2.1f, 0);
+        }
     }
 }

@@ -38,35 +38,6 @@ public class MovementController : MonoBehaviour {
         return Physics.Raycast(transform.position, -Vector3.up, m_distance + 0.1f);
     }
 
-    void TaskOnClick1() {
-        if (grounded && timer <= 0)
-        {
-            grounded = false;
-            rb.AddForce(new Vector3(0, m_jump, 0));
-        }
-        timer = 0.1f;
-    }
-
-    void TaskOnClick2()
-    {
-        movement = -1;
-        anim.SetFloat("velocity", Mathf.Abs(movement));
-        rb.velocity = new Vector3(movement * m_speed, rb.velocity.y, 0);
-        Vector3 tempscale = transform.localScale;
-        tempscale.z = Mathf.Abs(transform.localScale.z) * -1;
-        transform.localScale = tempscale;
-    }
-
-    void TaskOnClick3()
-    {
-        movement = 1;
-        anim.SetFloat("velocity", Mathf.Abs(movement));
-        rb.velocity = new Vector3(movement * m_speed, rb.velocity.y, 0);
-        Vector3 tempscale = transform.localScale;
-        tempscale.z = Mathf.Abs(transform.localScale.z);
-        transform.localScale = tempscale;
-    }
-
     private void Update()
     {
         if (timer <= 0)
@@ -78,64 +49,9 @@ public class MovementController : MonoBehaviour {
             timer -= Time.deltaTime;
         }
 
-        float horizontal;
-        float vertical;
-        /*
-#if UNITY_IOS
-        if (Input.touchCount > 0)
-        {
-            Touch myTouch = Input.touches[0];
+        float vertical = Input.GetAxis("Horizontal");
 
-            if (myTouch.phase == TouchPhase.Began)
-            {
-                touchOrigin = myTouch.position;
-            } else if (myTouch.phase == TouchPhase.Ended && touchOrigin.x >= 0)
-            {
-                Vector2 touchEnd = myTouch.position;
-                float x = touchEnd.x - touchOrigin.x;
-                float y = touchEnd.y - touchOrigin.y;
-                touchOrigin.x = -1;
-
-                if (Mathf.Abs(x) > Mathf.Abs(y))
-                {
-                    horizontal = x > 0 ? 1 : -1;
-                }
-                else
-                {
-                    vertical = y > 0 ? 1 : -1;
-                }
-            }
-        }
-#else*/
-        horizontal = Input.GetAxis("Jump");
-        vertical = Input.GetAxis("Horizontal");
-//#endif
-        if (Input.touchCount > 0)
-        {
-            Touch myTouch = Input.touches[0];
-
-            if (myTouch.phase == TouchPhase.Began)
-            {
-                touchOrigin = myTouch.position;
-            } else if (myTouch.phase == TouchPhase.Ended && touchOrigin.x >= 0)
-            {
-                Vector2 touchEnd = myTouch.position;
-                float x = touchEnd.x - touchOrigin.x;
-                float y = touchEnd.y - touchOrigin.y;
-                touchOrigin.x = -1;
-
-                if (Mathf.Abs(x) > Mathf.Abs(y))
-                {
-                    horizontal = x > 0 ? 1 : -1;
-                }
-                else
-                {
-                    vertical = y > 0 ? 1 : -1;
-                }
-            }
-        }
-
-        if (horizontal > 0){
+        if (Input.GetAxis("Jump") > 0){
             if(grounded && timer <= 0)
             {
                 grounded = false;

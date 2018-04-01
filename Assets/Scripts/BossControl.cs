@@ -22,6 +22,7 @@ public class BossControl : MonoBehaviour {
     private GameObject player;
     public GameObject JumpArea1, JumpArea2;
     public GameObject shield;
+    public GameObject rig;
     private Material mat;
     public bool meleephase, firephase, icephase;
     private bool lastphasenotmelee, lastphasenotfire;
@@ -35,7 +36,7 @@ public class BossControl : MonoBehaviour {
     // Use this for initialization
     void Start () {
         startcasting = false;
-        timer3 = threephasetimer;
+        //timer3 = threephasetimer;
         meleephase = true;
         meleephasetext = true;
         lastphasenotmelee = true;
@@ -56,6 +57,27 @@ public class BossControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (timer <= 0)
+        {
+            timer = 0;
+        }
+        else
+        {
+            timer -= Time.deltaTime;
+        }
+
+        groundArray = Physics.OverlapSphere(m_feet.position, 0.2f, m_ground);
+        platformArray = Physics.OverlapSphere(m_feet.position, 0.2f, m_platform);
+
+        if (groundArray.Length > 0 || platformArray.Length > 0)
+        {
+            grounded = true;
+        }
+        else
+        {
+            grounded = false;
+        }
+
         if (timer3 <= 0)
         {
             if (lastphasenotmelee) {
@@ -171,7 +193,7 @@ public class BossControl : MonoBehaviour {
     private void Melee()
     {
         float distbetween = Vector3.Distance(transform.position, player.transform.position);
-        if (distbetween > 1.8f)
+        if (distbetween > 1.0f)
         {
             seeking = true;
         } else {
@@ -214,7 +236,7 @@ public class BossControl : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, right, m_speed / 75);
             if (distbetween2 < 0.37f)
             {
-                needtojump = false;
+                needtojump = true;
                 anim.SetFloat("velocity", 0);
                 phaseNo = 3;
             }
@@ -237,26 +259,7 @@ public class BossControl : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        if (timer <= 0)
-        {
-            timer = 0;
-        }
-        else
-        {
-            timer -= Time.deltaTime;
-        }
-
-        groundArray = Physics.OverlapSphere(m_feet.position, 0.2f, m_ground);
-        platformArray = Physics.OverlapSphere(m_feet.position, 0.2f, m_platform);
-
-        if (groundArray.Length > 0 || platformArray.Length > 0)
-        {
-            grounded = true;
-        }
-        else
-        {
-            grounded = false;
-        }
+        
     }
 
     bool IsGrounded()
@@ -266,18 +269,19 @@ public class BossControl : MonoBehaviour {
 
     void LookAt(Vector3 position)
     {
-            Vector3 tempscale = transform.localScale;
-            if (position.x < transform.position.x)
+            Vector3 tempscale = rig.transform.localScale;
+
+        if (position.x < transform.position.x)
             {
                 movement = -1;
-                tempscale.z = Mathf.Abs(transform.localScale.z);
-                transform.localScale = tempscale;
-            }
+                tempscale.y = Mathf.Abs(rig.transform.localScale.y);
+                rig.transform.localScale = tempscale;
+        }
             else if (position.x > transform.position.x)
             {
                 movement = 1;
-                tempscale.z = Mathf.Abs(transform.localScale.z) * -1;
-                transform.localScale = tempscale;
+                tempscale.y = Mathf.Abs(rig.transform.localScale.y) * -1;
+                rig.transform.localScale = tempscale;
             }  
     }
 
@@ -310,16 +314,16 @@ public class BossControl : MonoBehaviour {
                 grounded = false;
                 rb.AddForce(new Vector3(-m_jump/2, m_jump, 0));
             }
-            timer = 0.1f;
+            timer2 = 0.1f;
         }
         else
         {
-            if (grounded && timer <= 0 && needtojump)
+            if (grounded && timer2 <= 0 && needtojump)
             {
                 grounded = false;
                 rb.AddForce(new Vector3(m_jump/2, m_jump, 0));
             }
-            timer = 0.1f;
+            timer2 = 0.1f;
         }
     }
 

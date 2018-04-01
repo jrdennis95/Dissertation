@@ -46,7 +46,13 @@ public class PlayerStats : MonoBehaviour {
 
     public void addHealth(int health)
     {
-        m_health += health;
+        if (m_health < 100)
+        {
+            m_health += health;
+        } else
+        {
+            m_health = 100;
+        }
     }
 
     public void subtractHealth(int health)

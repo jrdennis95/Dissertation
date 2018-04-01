@@ -9,8 +9,14 @@ public class GameOverScript : MonoBehaviour {
     public Button m_button1, m_button2;
 	// Use this for initialization
 	void Start () {
-        m_button1.onClick.AddListener(TaskOnClick1);
-        m_button2.onClick.AddListener(TaskOnClick2);
+        if(SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            m_button2.onClick.AddListener(TaskOnClick2);
+        } else
+        {
+            m_button1.onClick.AddListener(TaskOnClick1);
+            m_button2.onClick.AddListener(TaskOnClick2);
+        }
     }
 	
 	// Update is called once per frame
@@ -27,8 +33,14 @@ public class GameOverScript : MonoBehaviour {
 
     private void TaskOnClick2()
     {
-        m_button1.onClick.RemoveAllListeners();
-        m_button2.onClick.RemoveAllListeners();
+        if (SceneManager.GetActiveScene().buildIndex == 8)
+        {
+            m_button2.onClick.RemoveAllListeners();
+        } else
+        {
+            m_button1.onClick.RemoveAllListeners();
+            m_button2.onClick.RemoveAllListeners();
+        }
         SceneManager.LoadScene(0);
     }
 }

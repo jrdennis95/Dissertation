@@ -28,11 +28,14 @@ public class BossPlatformCollision : MonoBehaviour {
             timer = 0;
         }
 
-        if (bc.GetFirePhase() || bc.GetIcePhase()) {
+        if (bc.GetFirePhase() || bc.GetIcePhase())
+        {
             if (bc.GetPhaseNo() == 1)
             {
                 Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), true);
-            } else{
+            }
+            else
+            {
                 if (boss.transform.position.y > transform.position.y + offset)
                 {
                     Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), false);
@@ -42,25 +45,30 @@ public class BossPlatformCollision : MonoBehaviour {
                     Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), true);
                 }
             }
-        } else
+        }
+        else
         {
-            if (boss.transform.position.y > transform.position.y + offset)
+            if (boss != null)
             {
-                if (!bc.GetNeedToFall())
+                if (boss.transform.position.y > transform.position.y + offset)
                 {
-                    Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), false);
-                } else
+                    if (!bc.GetNeedToFall())
+                    {
+                        Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), false);
+                    }
+                    else
+                    {
+                        Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), true);
+                    }
+                }
+                else if (boss.transform.position.y < transform.position.y + offset)
                 {
                     Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), true);
                 }
-            }
-            else if (boss.transform.position.y < transform.position.y + offset)
-            {
-                Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), true);
-            }
-            else
-            {
-                Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), true);
+                else
+                {
+                    Physics.IgnoreCollision(GetComponent<Collider>(), boss.GetComponent<Collider>(), true);
+                }
             }
         }
     }

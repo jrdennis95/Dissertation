@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyDeathScript : MonoBehaviour {
 
     float decay;
+    public bool boss;
     // Use this for initialization
     void Start () {
         decay = 3.0f;
@@ -17,12 +19,15 @@ public class EnemyDeathScript : MonoBehaviour {
         if(decay < 0)
         {
             Destroy(transform.parent.gameObject);
+            if (boss)
+            {
+                SceneManager.LoadScene(8);
+            }
         }
     }
 
     private void OnCollisionEnter(Collision hit)
     {
-        Debug.Log(hit.gameObject.tag);
         if (hit.gameObject.tag == "Player")
         {
             Debug.Log("hit");

@@ -17,7 +17,7 @@ public class AttackScript : MonoBehaviour
     private Rigidbody rb;
     float cooldown;
     public Button b1;
-
+    bool enemyexists, bossexists, playerexists;
     Animator anim;
     MovementController mc;
     public LayerMask m_attackable;
@@ -47,6 +47,9 @@ public class AttackScript : MonoBehaviour
 
     private void FixedUpdate()
     {
+        enemyexists = false;
+        bossexists = false;
+        playerexists = false;
         if (gameObject.transform.parent.parent.gameObject.tag == "Player")
         {
 
@@ -58,62 +61,74 @@ public class AttackScript : MonoBehaviour
                 anim.SetTrigger("attack");
                 cooldown = Time.time + dmgspeed;
                 attackableArray = Physics.OverlapSphere(transform.position, kbradius, m_attackable);
-                if (attackableArray.Length > 0 && attackableArray.Length < 3)
+                for (int i = 0; i < attackableArray.Length; i++) {
+                    if (attackableArray[i].tag == "Enemy"){
+                        enemyexists = true;
+                    } else {
+                        enemyexists = false;
+                    }
+
+                    if (attackableArray[i].tag == "Boss")
+                    {
+                        bossexists = true;
+                    }
+                    else
+                    {
+                        bossexists = false;
+                    }
+                }
+
+                if (SceneManager.GetActiveScene().buildIndex == 2)
                 {
-                    if (SceneManager.GetActiveScene().buildIndex == 2)
+                    for (int i = 0; i < attackableArray.Length; i++)
                     {
-                        if (attackableArray[0].gameObject.tag == "Enemy" || attackableArray[1].gameObject.tag == "Enemy")
-                        {
-                            if (SceneManager.GetActiveScene().buildIndex == 2)
-                            {
-                                if (attackableArray[0].gameObject.tag == "Enemy" && attackableArray[1].gameObject.tag != "Enemy" || attackableArray[0].gameObject.tag != "Enemy" && attackableArray[1].gameObject.tag == "Enemy")
-                                {
-                                    EnemyStats stats = attackableArray[0].transform.parent.gameObject.GetComponent<EnemyStats>();
-                                    stats.subtractHealth(dmg);
+                        Debug.Log(attackableArray[i]);
+                    }
+                    if (enemyexists)
+                    {
+                        EnemyStats stats = attackableArray[0].transform.parent.gameObject.GetComponent<EnemyStats>();
+                        stats.subtractHealth(dmg);
 
-                                    if (attackableArray[0].gameObject.transform.position.x < transform.position.x)
-                                    {
-                                        kb = new Vector3(attackableArray[0].transform.parent.gameObject.transform.position.x - transform.position.x, 0, 0).normalized;
-                                    }
-                                    else
-                                    {
-                                        kb = new Vector3(attackableArray[0].transform.parent.gameObject.transform.position.x + transform.position.x, 0, 0).normalized;
-                                    }
-                                    kb *= knockback;
-                                    rb = attackableArray[0].transform.parent.gameObject.transform.GetComponent<Rigidbody>();
-                                    rb.velocity = new Vector3(0, 0, 0);
-                                    rb.AddForce(kb, ForceMode.Impulse);
-                                }
-                            }
+                        if (attackableArray[0].gameObject.transform.position.x < transform.position.x)
+                        {
+                            kb = new Vector3(attackableArray[0].transform.parent.gameObject.transform.position.x - transform.position.x, 0, 0).normalized;
                         }
-                    } else if(attackableArray[0].gameObject.tag == "Boss")
-                    {
-                        if (!bc.GetShielded())
+                        else
                         {
-                            if (attackableArray[0].gameObject.tag == "Boss")
-                            {
-                                EnemyStats stats = attackableArray[0].GetComponent<EnemyStats>();
-                                stats.subtractHealth(dmg);
+                            kb = new Vector3(attackableArray[0].transform.parent.gameObject.transform.position.x + transform.position.x, 0, 0).normalized;
+                        }
+                        kb *= knockback;
+                        rb = attackableArray[0].transform.parent.gameObject.transform.GetComponent<Rigidbody>();
+                        rb.velocity = new Vector3(0, 0, 0);
+                        rb.AddForce(kb, ForceMode.Impulse);
+                    }
+                }
+                else
+                {
+                    if (!bc.GetShielded())
+                    {
+                        if (bossexists)
+                        {
+                            EnemyStats stats = attackableArray[0].GetComponent<EnemyStats>();
+                            stats.subtractHealth(dmg);
 
-                                if (attackableArray[0].gameObject.transform.position.x < transform.position.x)
-                                {
-                                    kb = new Vector3(attackableArray[0].transform.position.x - transform.position.x, 0, 0).normalized;
-                                }
-                                else
-                                {
-                                    kb = new Vector3(attackableArray[0].transform.position.x + transform.position.x, 0, 0).normalized;
-                                }
-                                kb *= knockback;
-                                rb = attackableArray[0].transform.GetComponent<Rigidbody>();
-                                rb.velocity = new Vector3(0, 0, 0);
-                                rb.AddForce(kb, ForceMode.Impulse);
+                            if (attackableArray[0].gameObject.transform.position.x < transform.position.x)
+                            {
+                                kb = new Vector3(attackableArray[0].transform.position.x - transform.position.x, 0, 0).normalized;
                             }
+                            else
+                            {
+                                kb = new Vector3(attackableArray[0].transform.position.x + transform.position.x, 0, 0).normalized;
+                            }
+                            kb *= knockback;
+                            rb = attackableArray[0].transform.GetComponent<Rigidbody>();
+                            rb.velocity = new Vector3(0, 0, 0);
+                            rb.AddForce(kb, ForceMode.Impulse);
                         }
                     }
                 }
             }
-        }
-        else if (gameObject.transform.parent.parent.gameObject.tag == "Boss")
+        } else if (gameObject.transform.parent.parent.gameObject.tag == "Boss")
         {
             if (!bc.GetShielded())
             {
@@ -124,6 +139,7 @@ public class AttackScript : MonoBehaviour
                     cooldown = Time.time + dmgspeed;
 
                     attackableArray = Physics.OverlapSphere(transform.position, kbradius, m_attackable);
+                    Debug.Log(attackableArray.Length);
                     if (attackableArray.Length > 0)
                     {
                         if (attackableArray[0].gameObject.tag == "Player")

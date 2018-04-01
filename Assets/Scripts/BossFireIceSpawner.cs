@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class BossFireIceSpawner : MonoBehaviour {
 
-    public GameObject Fire, Ice;
+    public GameObject Fire, Ice, Heart;
     private BossControl bc;
     public float cooldown;
     private float cooldown2;
+    private float counter;
     Vector3[] leftarray, downarray;
 
     // Use this for initialization
     void Start () {
+        counter = 0;
         cooldown2 = cooldown;
         bc = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossControl>();
         leftarray = new Vector3[] { new Vector3(113.9f, 51.81f, 139.85f), new Vector3(113.9f, 53.86f, 139.85f), new Vector3(113.9f, 55.21f, 139.85f) };
@@ -26,14 +28,31 @@ public class BossFireIceSpawner : MonoBehaviour {
             if (bc.GetFirePhase() && bc.GetCasting())
             {
                 GameObject go;
-                go = Instantiate(Fire) as GameObject;
+                if(counter == 4)
+                {
+                    go = Instantiate(Heart) as GameObject;
+                    counter = 0;
+                } else
+                {
+                    go = Instantiate(Fire) as GameObject;
+                    counter++;
+                }
                 go.transform.position = PathChooser(1);
                 go.transform.SetParent(transform);
             }
             else if (bc.GetIcePhase() && bc.GetCasting())
             {
                 GameObject go;
-                go = Instantiate(Ice) as GameObject;
+                if (counter == 4)
+                {
+                    go = Instantiate(Heart) as GameObject;
+                    counter = 0;
+                }
+                else
+                {
+                    go = Instantiate(Ice) as GameObject;
+                    counter++;
+                }
                 go.transform.position = PathChooser(2);
                 go.transform.SetParent(transform);
             }

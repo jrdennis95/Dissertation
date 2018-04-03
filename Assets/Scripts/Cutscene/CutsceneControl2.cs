@@ -291,9 +291,6 @@ public class CutsceneControl2 : MonoBehaviour {
         text10.color = new Color(0, 1, 0, 0);
         text11.color = new Color(0, 1, 0, 0);
     }
-    void FixedUpdate()
-    {
-    }
 
 
 }

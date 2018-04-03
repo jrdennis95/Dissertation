@@ -245,7 +245,7 @@ public class BossControl : MonoBehaviour {
         {
             LookAt(top);
             Jump();
-            timer2 = 1.0f;
+            timer2 = 1.3f;
             phaseNo = 4;
         }
         else if (phaseNo == 4 && timer2 <= 0)

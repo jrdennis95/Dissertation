@@ -137,7 +137,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 1dd5afbe72b78672a791f893fdff3e5f Assembly-CSharp.dll:DigitalRuby.PyroParticles.FireBaseScript
 07155a7cfe70853b9819a3ed9aaa5ee4 Assembly-CSharp.dll:.ElevatorScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.InteractButtonScript
-e6ee39469b2be8581bd5e0b0c2d9b1ae Assembly-CSharp.dll:.CameraController
+49e439f90b662cb8e7f2d979393192ef Assembly-CSharp.dll:.CameraController
 88e745da281bc889e248b64cf4d72a54 Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.SunShafts
 dd4b890026c62e5ddad6e966f7174383 Assembly-CSharp.dll:.ItemRotate
 a8e970e73d5fdf53a4665707fcc12701 Assembly-CSharp.dll:.PlatformCollision
@@ -204,6 +204,6 @@ a695839289e0d0115b9f241b8277486f Assembly-CSharp.dll:LPHailSet.DemoSceneControll
 1dd5afbe72b78672a791f893fdff3e5f Assembly-CSharp.dll:DigitalRuby.PyroParticles.FireConstantBaseScript
 e2a8fd4524fc2a3a236b7e7720b544a6 Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.EdgeDetection
 b3432dfe180f02232d7612fb366593d3 Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.ColorCorrectionLookup
-5d9729b3c31dd3cb573b0bb3dd04cf5e Assembly-CSharp.dll:.ParallaxEffect
+39a77719123e00d74049eb637fca1aa9 Assembly-CSharp.dll:.ParallaxEffect
 3ae0dad0b55a80319e1d57c2dce28da7 Assembly-CSharp.dll:UnityStandardAssets.ImageEffects.Tonemapping
 54329573f88ada6af4f060e4369aa6eb Assembly-CSharp.dll:.CutsceneControl2

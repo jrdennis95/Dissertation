@@ -12,16 +12,14 @@ public class GUIScript : MonoBehaviour {
     public GameObject UIpaused;
     public Button m_button1, m_button2;
     public Image UIhurt, UIshield;
-    private Color hurtColourOn, shieldColourOn, hurtColourOff, shieldColourOff ;
+    private Color hurtColourOn, hurtColourOff;
     public float m_decaySpeed;
-    bool shielded = false;
     bool paused = false;
 
     // Use this for initialization
     void Start () {
         stats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         hurtColourOn = new Color(1f, 0f, 0f, 0.39f);
-        shieldColourOn = new Color(0f, 0.54f, 1f, 0.39f);
     }
 	
 	// Update is called once per frame
@@ -38,16 +36,7 @@ public class GUIScript : MonoBehaviour {
             UIhurt.color = Color.Lerp(UIhurt.color, Color.clear, m_decaySpeed * Time.deltaTime);
         }
 
-        if (shielded)
-        {
-            UIshield.color = shieldColourOn;
-        }
-        else
-        {
-            UIshield.color = Color.Lerp(UIshield.color, Color.clear, m_decaySpeed * Time.deltaTime);
-        }
         stats.SetHurt(false);
-        shielded = false;
 
         if (Input.GetKey("escape") && paused == false)
         {
@@ -78,7 +67,7 @@ public class GUIScript : MonoBehaviour {
         m_button2.onClick.RemoveAllListeners();
         PlayerPrefs.SetInt("lives", 3);
         PlayerPrefs.SetInt("score", 0);
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(0);
     }
 
 }

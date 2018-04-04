@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_speed: 0.09
   m_damage: 0
-  m_heal: 15
-  decay: 4
+  m_heal: 10
+  decay: 3
 --- !u!135 &135023637348172382
 SphereCollider:
   m_ObjectHideFlags: 1

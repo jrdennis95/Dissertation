@@ -8,14 +8,12 @@ public class LoadingScript : MonoBehaviour {
     public int m_scene;
     AsyncOperation loadScene;
 
-    // Use this for initialization
     void Start () {
         loadScene = SceneManager.LoadSceneAsync(m_scene);
         loadScene.allowSceneActivation = false;
         StartCoroutine(PreLoad());
     }
 	
-	// Update is called once per frame
 	void Update () {
     }
 

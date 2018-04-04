@@ -50,7 +50,6 @@ public class CutsceneControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(overalltime);
         if (Input.GetKeyDown("space"))
         {
             ResetColours();
@@ -82,7 +81,6 @@ public class CutsceneControl : MonoBehaviour {
             if (overalltime > 4.0f && overalltime < 4.1f)
             {
                 fadetime = 0.0f;
-                //ResetColours();
             }
             if (overalltime > 4.5f && overalltime < 9.0f)
             {

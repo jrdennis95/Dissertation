@@ -21,6 +21,8 @@ public class EnemyDeathScript : MonoBehaviour {
             Destroy(transform.parent.gameObject);
             if (boss)
             {
+				PlayerPrefs.SetInt("lives", 3);
+				PlayerPrefs.SetInt("score", 0);
                 SceneManager.LoadScene(8);
             }
         }

@@ -44,7 +44,10 @@ public class InteractButtonScript : MonoBehaviour {
             AudioSource audio;
             audio = GetComponent<AudioSource>();
             AudioSource.PlayClipAtPoint(audio.clip, transform.position);
-            GameObject.FindGameObjectWithTag("Trapdoor").SetActive(false);
+			GameObject[] trapdoors = GameObject.FindGameObjectsWithTag ("Trapdoor");
+			for (int i = 0; i < trapdoors.Length; i++) {
+				trapdoors [i].SetActive (false);
+			}
             gameObject.GetComponent<InteractButtonScript>().enabled = false;
         }
 	}

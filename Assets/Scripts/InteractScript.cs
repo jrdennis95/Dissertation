@@ -41,7 +41,6 @@ public class InteractScript : MonoBehaviour {
         {
             player = hit.gameObject;
             hit.transform.root.GetChild(0).gameObject.SetActive(true);
-            //DisplaySpeech(hit);
             detected = true;
         }
     }
@@ -52,7 +51,6 @@ public class InteractScript : MonoBehaviour {
         {
             player = hit.gameObject;
             hit.transform.root.GetChild(0).gameObject.SetActive(false);
-            //HideSpeech(hit);
             detected = false;
         }
     }

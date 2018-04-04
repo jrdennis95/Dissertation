@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Boss Fight.unity
+- path: Assets/Boss Cutscene.unity
   isLoaded: 1
   isActive: 1
